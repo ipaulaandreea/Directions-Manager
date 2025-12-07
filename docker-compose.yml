@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: carpool_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: carpool_user
+      POSTGRES_PASSWORD: carpool_password
+      POSTGRES_DB: carpool_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
