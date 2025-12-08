@@ -9,7 +9,7 @@ Ivan Andreea-Paula Tema 15: Manager de trasee integrat cu Google Directions
 Dezvoltarea unei aplicații care permite utilizatorilor să caute curse disponibile și să se alăture acestora. 
 Compatibilitatea între trasee este calculată automat folosind **Google Directions API**, pe baza formei rutei și a abaterii necesare pentru preluarea pasagerului.
 ### Tech Stack: 
-React.js, Express.js, Google Directions API, PostgreSQL
+React.js, Express.js, Google Directions API, PostgreSQL, Docker
 
 
 ##  Funcționalități
@@ -34,8 +34,7 @@ React.js, Express.js, Google Directions API, PostgreSQL
 ## Endpoint-uri
 
 ### Auth
--   `POST /api/auth/register`
--   `POST /api/auth/login`
+-   `POST auth/login`
 
 ### Trips
 -   `GET /api/trips/search`

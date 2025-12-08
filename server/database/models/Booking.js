@@ -1,4 +1,3 @@
-// server/database/models/Booking.js
 module.exports = (sequelize, DataTypes) => {
     const Booking = sequelize.define(
         "Booking",

@@ -1,4 +1,3 @@
-// server/database/models/Trip.js
 module.exports = (sequelize, DataTypes) => {
     const Trip = sequelize.define(
         "Trip",
