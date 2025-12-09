@@ -53,6 +53,7 @@ React.js, Express.js, Google Directions API, PostgreSQL, Docker
 
 ``` bash
 docker compose up -d
+cd server && npm run seed
 cd server && npm install && npm run dev
 cd client && npm install && npm run dev
 ```

@@ -3,6 +3,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
+const tripRoutes = require('./routes/trip.routes');
 const express = require("express");
 const db = require("./database");
 const morgan = require("morgan");
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
+app.use('/trips', tripRoutes);
 
 db.sequelize
     .sync()
