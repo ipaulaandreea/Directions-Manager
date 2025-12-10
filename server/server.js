@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const tripRoutes = require('./routes/trip.routes');
 const bookingRoutes = require('./routes/booking.routes');
+const matchRoutes = require('./routes/match.routes');
 const express = require("express");
 const db = require("./database");
 const morgan = require("morgan");
@@ -24,6 +25,7 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/trips', tripRoutes);
 app.use('/bookings', bookingRoutes);
+app.use('/matches', matchRoutes);
 
 db.sequelize
     .sync()

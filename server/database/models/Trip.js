@@ -15,9 +15,25 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            originLat: {
+                type: DataTypes.DECIMAL(10, 7),
+                allowNull: true,
+            },
+            originLng: {
+                type: DataTypes.DECIMAL(10, 7),
+                allowNull: true,
+            },
             destination: {
                 type: DataTypes.STRING,
                 allowNull: false,
+            },
+            destinationLat: {
+                type: DataTypes.DECIMAL(10, 7),
+                allowNull: true,
+            },
+            destinationLng: {
+                type: DataTypes.DECIMAL(10, 7),
+                allowNull: true,
             },
             departureTime: {
                 type: DataTypes.DATE,
@@ -28,8 +44,6 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             price: DataTypes.DECIMAL,
-            polyline: DataTypes.TEXT,
-            maxDetourKm: DataTypes.DECIMAL,
         },
         {
             tableName: "trips",

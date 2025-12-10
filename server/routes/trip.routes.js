@@ -2,8 +2,10 @@ const express = require("express");
 const { Op } = require("sequelize");
 const { Trip, User, Booking } = require("../database");
 const {verifyToken} = require('../utils/token.js');
+const axios = require("axios");
 
 const router = express.Router();
+const GOOGLE_KEY = process.env.GOOGLE_KEY;
 
 router.get("/", async (req, res) => {
     try {
@@ -58,10 +60,57 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", verifyToken, async (req, res) => {
+    const {
+        origin,
+        destination,
+        departureTime,
+        availableSeats,
+        price,
+    } = req.body;
+
+    if (!origin || !destination || !departureTime || !availableSeats) {
+        return res.status(400).json({
+            success: false,
+            message: "origin, destination, departureTime și availableSeats sunt obligatorii",
+        });
+    }
+
     try {
+        const geoOrigin = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+                origin
+            )}&key=${GOOGLE_KEY}`
+        );
+        if (!geoOrigin.data.results.length) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Nu s-a putut geocoda origin" });
+        }
+        const originLoc = geoOrigin.data.results[0].geometry.location;
+
+        const geoDest = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+                destination
+            )}&key=${GOOGLE_KEY}`
+        );
+        if (!geoDest.data.results.length) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Nu s-a putut geocoda destination" });
+        }
+        const destLoc = geoDest.data.results[0].geometry.location;
+
         const trip = await Trip.create({
             driver_id: req.user.id,
-            ...req.body
+            origin,
+            originLat: Number(originLoc.lat.toFixed(6)),
+            originLng: Number(originLoc.lng.toFixed(6)),
+            destination,
+            destinationLat: Number(destLoc.lat.toFixed(6)),
+            destinationLng: Number(destLoc.lng.toFixed(6)),
+            departureTime,
+            availableSeats,
+            price,
         });
 
         res.status(201).json({ success: true, data: trip });
@@ -79,10 +128,69 @@ router.put("/:id", verifyToken, async (req, res) => {
         }
 
         if (trip.driver_id !== req.user.id) {
-            return res.status(403).json({ success: false, message: "You can only update your own trips" });
+            return res.status(403).json({
+                success: false,
+                message: "You can only update your own trips",
+            });
         }
 
-        const updatedTrip = await trip.update(req.body);
+        const {
+            origin,
+            destination,
+            departureTime,
+            availableSeats,
+            price,
+        } = req.body;
+
+        let originLat = trip.originLat;
+        let originLng = trip.originLng;
+        let destinationLat = trip.destinationLat;
+        let destinationLng = trip.destinationLng;
+
+        if (origin && origin !== trip.origin) {
+            const geoOrigin = await axios.get(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+                    origin
+                )}&key=${GOOGLE_KEY}`
+            );
+            if (!geoOrigin.data.results.length) {
+                return res
+                    .status(400)
+                    .json({ success: false, message: "Nu s-a putut geocoda origin" });
+            }
+            const loc = geoOrigin.data.results[0].geometry.location;
+            originLat = loc.lat;
+            originLng = loc.lng;
+        }
+
+        if (destination && destination !== trip.destination) {
+            const geoDest = await axios.get(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+                    destination
+                )}&key=${GOOGLE_KEY}`
+            );
+            if (!geoDest.data.results.length) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Nu s-a putut geocoda destination",
+                });
+            }
+            const loc = geoDest.data.results[0].geometry.location;
+            destinationLat = loc.lat;
+            destinationLng = loc.lng;
+        }
+
+        const updatedTrip = await trip.update({
+            origin: origin ?? trip.origin,
+            originLat,
+            originLng,
+            destination: destination ?? trip.destination,
+            destinationLat,
+            destinationLng,
+            departureTime: departureTime ?? trip.departureTime,
+            availableSeats: availableSeats ?? trip.availableSeats,
+            price: price ?? trip.price,
+        });
 
         res.status(200).json({ success: true, data: updatedTrip });
     } catch (err) {
