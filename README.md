@@ -35,19 +35,25 @@ React.js, Express.js, Google Directions API, PostgreSQL, Docker
 
 ### Auth
 -   `POST auth/login`
+-   `POST auth/check`
 
 ### Trips
--   `GET /api/trips/search`
+-   `GET /trips`
+-   `GET /trips/search`
+-   `GET /trips/id`
+-   `POST /trips`
+-   `PUT /trips/:id`
+-   `DELETE /trips/:id`
 
 ### Bookings
--  `POST /api/bookings`
--  `GET /api/bookings`
--  `GET /api/bookings/:id`
--  `DELETE /api/bookings/:id`
+-  `GET /bookings`
+-  `GET /bookings/:id`
+-  `POST /bookings`
+-  `DELETE /bookings/:id`
 
-### Directions/ Compatibility
--   `POST /api/directions`
--   `POST /api/compatibility/check`
+### Matches
+-   `POST /matches/geocode`
+-   `POST /matches/match`
 
 ## Instalare
 

@@ -60,23 +60,15 @@ router.post("/", verifyToken, async (req, res) => {
 
 router.get("/", verifyToken, async (req, res) => {
     try {
-        const passengerId = req.user.id;
-
         const bookings = await Booking.findAll({
-            where: { passenger_id: passengerId },
+            where: { passenger_id: req.user.id },
             include: [
                 {
                     model: Trip,
                     as: "trip",
-                    include: [
-                        {
-                            model: User,
-                            as: "driver",
-                            attributes: ["id", "name", "email"],
-                        },
-                    ],
-                },
-            ],
+                    attributes: ["origin", "destination", "departureTime", "price"]
+                }
+            ]
         });
 
         res.status(200).json({

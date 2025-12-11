@@ -149,6 +149,11 @@ router.post("/match", verifyToken, async (req, res) => {
             matches.push({
                 tripId: trip.id,
                 driverId: trip.driver_id,
+                origin: trip.origin,
+                destination: trip.destination,
+                departureTime: trip.departureTime,
+                availableSeats: trip.availableSeats,
+                price: trip.price,
                 pickupDistance_meters: pickupDistance,
                 pickupDuration_seconds: pickupDuration,
                 destinationDistance_meters: destDistance,

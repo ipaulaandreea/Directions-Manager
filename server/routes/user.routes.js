@@ -33,6 +33,23 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.get("/me", verifyToken, async (req, res) => {
+    try {
+        const user = await User.findByPk(req.user.id, {
+            attributes: ["id", "name", "email"]
+        });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
 router.put('/:id', verifyToken, async (req, res) => {
     try {
         const id = req.params.id;
