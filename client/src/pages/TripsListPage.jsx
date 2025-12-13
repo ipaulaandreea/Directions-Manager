@@ -6,17 +6,11 @@ import "./TripsListPage.css";
 const TripsListPage = () => {
     const [trips, setTrips] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [origin, setOrigin] = useState("");
-    const [destination, setDestination] = useState("");
 
     const fetchTrips = async () => {
         setLoading(true);
         try {
-            const params = {};
-            if (origin) params.origin = origin;
-            if (destination) params.destination = destination;
-
-            const res = await api.get("/trips/search", { params });
+            const res = await api.get("/trips"); // ✅ all trips
             setTrips(res.data.data ?? res.data);
         } catch (err) {
             console.error(err);
@@ -30,15 +24,9 @@ const TripsListPage = () => {
         fetchTrips();
     }, []);
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        fetchTrips();
-    };
-
     return (
         <div className="trips-page">
             <div className="trips-container">
-
                 <div className="trips-header">
                     <div>
                         <h2 className="trips-title">Trips</h2>
@@ -50,24 +38,6 @@ const TripsListPage = () => {
                         + Create trip
                     </Link>
                 </div>
-
-                <form onSubmit={handleSearch} className="trips-search-form">
-                    <input
-                        className="search-input"
-                        placeholder="Origin"
-                        value={origin}
-                        onChange={(e) => setOrigin(e.target.value)}
-                    />
-                    <input
-                        className="search-input"
-                        placeholder="Destination"
-                        value={destination}
-                        onChange={(e) => setDestination(e.target.value)}
-                    />
-                    <button className="search-btn" type="submit">
-                        Search
-                    </button>
-                </form>
 
                 {loading ? (
                     <div className="trips-state">Loading trips...</div>
@@ -97,13 +67,9 @@ const TripsListPage = () => {
                                 </div>
                                 <div className="trip-card-side">
                                     {trip.price && (
-                                        <div className="trip-price">
-                                            {trip.price} RON
-                                        </div>
+                                        <div className="trip-price">{trip.price} RON</div>
                                     )}
-                                    <div className="trip-seats">
-                                        Seats: {trip.availableSeats}
-                                    </div>
+                                    <div className="trip-seats">Seats: {trip.availableSeats}</div>
                                 </div>
                             </Link>
                         ))}

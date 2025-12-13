@@ -24,11 +24,24 @@ const BookingsPage = () => {
 
     const handleCancel = async (id) => {
         try {
-            await api.delete(`/bookings/${id}`);
+            await api.patch(`/bookings/${id}/cancel`);
             fetchBookings();
         } catch (err) {
             console.error(err);
             alert("Failed to cancel booking");
+        }
+    };
+
+    const handleDelete = async (id) => {
+        const ok = window.confirm("Delete this booking permanently?");
+        if (!ok) return;
+
+        try {
+            await api.delete(`/bookings/${id}`);
+            fetchBookings();
+        } catch (err) {
+            console.error(err);
+            alert("Failed to delete booking");
         }
     };
 
@@ -75,12 +88,22 @@ const BookingsPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <button
-                                    onClick={() => handleCancel(b.id)}
-                                    className="booking-cancel-btn"
-                                >
-                                    Cancel
-                                </button>
+                                <div className="booking-actions">
+                                    <button
+                                        onClick={() => handleCancel(b.id)}
+                                        className="cancel-button"
+                                        disabled={b.status === "CANCELLED"}
+                                    >
+                                        Cancel
+                                    </button>
+
+                                    <button
+                                        onClick={() => handleDelete(b.id)}
+                                        className="delete-button"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>

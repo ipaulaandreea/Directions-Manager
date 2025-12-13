@@ -121,6 +121,24 @@
     transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
 }
 
+.cancel-button {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: none;
+    background: #e33a4e;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.cancel-button:hover {
+    background: #e33a4e;
+    box-shadow: 0 6px 18px rgba(147, 9, 9, 0.34);
+    transform: translateY(-1px);
+}
+
 .book-button:hover {
     background: #8F5CFF;
     box-shadow: 0 6px 18px rgba(108, 58, 227, 0.25);
@@ -130,6 +148,12 @@
 .book-button:active {
     transform: translateY(0);
     box-shadow: none;
+}
+
+.owner-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 12px;
 }
 
 @media (max-width: 640px) {

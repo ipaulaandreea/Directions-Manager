@@ -10,6 +10,7 @@ import TripDetailsPage from "./pages/TripDetailsPage";
 import TripCreatePage from "./pages/TripCreatePage.jsx";
 import MatchPage from "./pages/MatchPage";
 import BookingsPage from "./pages/BookingsPage";
+import TripEditPage from "./pages/TripEditPage";
 
 import "./App.css";
 
@@ -43,6 +44,14 @@ const App = () => {
                                 element={
                                     <ProtectedRoute>
                                         <TripDetailsPage />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/trips/:id/edit"
+                                element={
+                                    <ProtectedRoute>
+                                        <TripEditPage />
                                     </ProtectedRoute>
                                 }
                             />

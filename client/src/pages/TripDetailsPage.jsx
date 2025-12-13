@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axiosClient";
 import "./TripDetailsPage.css";
+import { useAuth } from "../context/AuthContext";
 
 const TripDetailsPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [trip, setTrip] = useState(null);
     const [loading, setLoading] = useState(true);
     const [seats, setSeats] = useState(1);
     const [message, setMessage] = useState(null);
+    const { user } = useAuth();
+    const isOwner =
+        user &&
+        (trip?.driver_id === user.id || trip?.driver?.id === user.id);
 
     useEffect(() => {
         const fetchTrip = async () => {
@@ -84,35 +90,71 @@ const TripDetailsPage = () => {
                             </p>
                         )}
                     </div>
-                </div>
-
-                <div className="trip-booking-section">
-                    <h3 className="trip-booking-title">Book this trip</h3>
-
-                    {message && (
-                        <div className={`trip-message ${message.startsWith("Failed") ? "error" : "success"}`}>
-                            {message}
-                        </div>
-                    )}
-
-                    <div className="trip-booking-form">
-                        <input
-                            type="number"
-                            min={1}
-                            className="seats-input"
-                            value={seats}
-                            onChange={(e) => setSeats(e.target.value)}
-                        />
+                {isOwner ? (
+                    <div className="owner-actions">
                         <button
-                            onClick={handleBook}
-                            className="book-button"
+                            type="button"
+                            className="btn-primary"
+                            onClick={() => navigate(`/trips/${trip.id}/edit`)}
                         >
-                            Book
+                            Edit
+                        </button>
+
+                        <button
+                            type="button"
+                            className="cancel-button"
+                            onClick={async () => {
+                                const ok = window.confirm("Delete this trip?");
+                                if (!ok) return;
+                                try {
+                                    await api.delete(`/trips/${trip.id}`);
+                                    navigate("/trips", { replace: true });
+                                } catch (e) {
+                                    console.error(e);
+                                    setMessage("Failed to delete trip");
+                                }
+                            }}
+                        >
+                            Delete
                         </button>
                     </div>
-                </div>
+                ) : (
+                    <div className="trip-booking-section">
+                        <h3 className="trip-booking-title">Book this trip</h3>
+
+                        {message && (
+                            <div className={`trip-message ${message.startsWith("Failed") ? "error" : "success"}`}>
+                                {message}
+                            </div>
+                        )}
+
+                        <div className="trip-booking-form">
+                            <input
+                                type="number"
+                                min={1}
+                                className="seats-input"
+                                value={seats}
+                                onChange={(e) => setSeats(e.target.value)}
+                            />
+
+                            <div className="booking-actions">
+                                <button onClick={handleBook} className="book-button">
+                                    Book
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => navigate("/trips")}
+                                    className="cancel-button"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
+            </div>
     );
 };
 

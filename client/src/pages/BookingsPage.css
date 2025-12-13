@@ -71,28 +71,39 @@
     color: #4B4B5A;
 }
 
-.booking-cancel-btn {
-    padding: 6px 14px;
-    border-radius: 999px;
+.booking-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-button {
+    background: #f3a7a0;
     border: none;
-    background: #EF4444;
-    color: #FFFFFF;
-    font-size: 0.8rem;
-    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.booking-cancel-btn:hover {
-    background: #DC2626;
-    transform: translateY(-1px);
+.cancel-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.booking-cancel-btn:active {
-    transform: translateY(0);
+.delete-button {
+    background: #ffffff;
+    color: #c0392b;
+    border: 1px solid #e5e5ef;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-/* RESPONSIVE */
+.delete-button:hover {
+    background: #fdecec;
+}
+
 @media (max-width: 640px) {
     .booking-card {
         flex-direction: column;

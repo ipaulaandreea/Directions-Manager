@@ -6,7 +6,8 @@ import "./MatchPage.css";
 const MatchPage = () => {
     const [pickupAddress, setPickupAddress] = useState("");
     const [destinationAddress, setDestinationAddress] = useState("");
-    const [maxDistance, setMaxDistance] = useState(10000);
+    const [maxPickupDistance, setMaxPickupDistance] = useState(10000);
+    const [maxDestinationDistance, setMaxDestinationDistance] = useState(10000);
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -18,7 +19,8 @@ const MatchPage = () => {
             const res = await api.post("/matches/match", {
                 pickupAddress: pickupAddress,
                 destinationAddress: destinationAddress,
-                maxDistance: Number(maxDistance),
+                maxPickupDistance: Number(maxPickupDistance),
+                maxDestinationDistance: Number(maxDestinationDistance),
             });
             setMatches(res.data.matches ?? []);
         } catch (err) {
@@ -56,13 +58,23 @@ const MatchPage = () => {
                     </div>
 
                     <div className="form-group small">
-                        <label className="form-label">Max distance (meters)</label>
+                        <label className="form-label">Max pickup distance (meters)</label>
                         <input
                             type="number"
                             min={0}
                             className="form-input"
-                            value={maxDistance}
-                            onChange={(e) => setMaxDistance(e.target.value)}
+                            value={maxPickupDistance}
+                            onChange={(e) => setMaxPickupDistance(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group small">
+                        <label className="form-label">Max destination distance (meters)</label>
+                        <input
+                            type="number"
+                            min={0}
+                            className="form-input"
+                            value={maxDestinationDistance}
+                            onChange={(e) => setMaxDestinationDistance(e.target.value)}
                         />
                     </div>
 
@@ -104,11 +116,11 @@ const MatchPage = () => {
                                             </span>
                                         </div>
                                         <div className="match-meta-item">
-                                            <span className="label">Pickup distance:</span>
+                                            <span className="label">Distance to pickup spot:</span>
                                             <span>{Math.round(m.pickupDistance_meters)} m</span>
                                         </div>
                                         <div className="match-meta-item">
-                                            <span className="label">Destination distance:</span>
+                                            <span className="label">Distance from destination spot:</span>
                                             <span>{Math.round(m.destinationDistance_meters)} m</span>
                                         </div>
                                     </div>
