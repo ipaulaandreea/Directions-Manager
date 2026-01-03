@@ -1,6 +1,14 @@
 # Directions-Manager
 Ivan Andreea-Paula Tema 15: Manager de trasee integrat cu Google Directions
+- Application Demo: https://drive.google.com/file/d/1oxcmp5vmutqO0o_HIMdjxMqMV4Sid2pN/view?usp=sharing
+## Demo Account
 
+⚠️ For demo/testing purposes only.
+
+- Email: paula@example.com
+- Password: password1
+
+This account exists only in the demo environment and contains no real data.
 # Aplicație de tip Carpooling
 
 
@@ -17,9 +25,9 @@ React.js, Express.js, Google Directions API, Google Geocoding API, PostgreSQL, D
 ### Opțiuni pasager
 -   Autentificare și autorizare (JWT)
 -   Introducerea adresei de preluare și a destinației
--   Căutarea curselor compatibile (match)
+-   Căutarea curselor compatibile
 -	Vizualizarea detaliilor unei curse
--	Crearea și anularea rezervărilor (bookings)
+-	Crearea și anularea rezervărilor
 
 ### Opțiuni șofer
 -   Crearea, editarea și ștergerea propriilor curse
