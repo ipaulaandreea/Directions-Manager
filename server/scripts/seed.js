@@ -75,33 +75,6 @@ async function seed() {
 
         const [trip1, trip2, trip3] = trips;
 
-        await Promise.all([
-            db.Booking.create({
-                trip_id: trip1.id,
-                passenger_id: andrei.id,
-                seats: 1,
-                status: "CONFIRMED",
-            }),
-            db.Booking.create({
-                trip_id: trip1.id,
-                passenger_id: maria.id,
-                seats: 2,
-                status: "CONFIRMED",
-            }),
-            db.Booking.create({
-                trip_id: trip2.id,
-                passenger_id: paula.id,
-                seats: 1,
-                status: "PENDING",
-            }),
-            db.Booking.create({
-                trip_id: trip3.id,
-                passenger_id: paula.id,
-                seats: 1,
-                status: "CANCELLED",
-            }),
-        ]);
-
     } catch (err) {
         console.error("Error while seeding:", err);
     } finally {
