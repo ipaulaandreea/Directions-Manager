@@ -6,7 +6,7 @@ Ivan Andreea-Paula Tema 15: Manager de trasee integrat cu Google Directions
 
 
 ##  Descriere
-### Scop: 
+
 Directions Manager are ca scop conectarea eficientă a șoferilor și pasagerilor care au trasee compatibile. Compatibilitatea este calculată automat folosind Google Directions API și Google Geocoding API, analizând forma reală a traseelor și abaterile necesare pentru preluarea pasagerilor.
 ### Tech Stack: 
 - React.js
@@ -35,8 +35,8 @@ Directions Manager are ca scop conectarea eficientă a șoferilor și pasagerilo
 	  • punctul de preluare al pasagerului și originea cursei
 	  • destinația pasagerului și destinația cursei
 -   Filtrarea curselor în funcție de:
-	  •	maxPickupDistance
-	  •	maxDestinationDistance
+	  -	maxPickupDistance
+	  - maxDestinationDistance
 -   Sortarea rezultatelor crescător după distanța de preluare
 
 ##  Structura proiectului
@@ -86,7 +86,7 @@ Directions Manager are ca scop conectarea eficientă a șoferilor și pasagerilo
 
 ## Demo Account
 
-⚠️ For demo/testing purposes only.
+⚠️ For demo/testing purposes only, log in with the following credentials:
 
 - Email: paula@example.com
 - Password: password1
