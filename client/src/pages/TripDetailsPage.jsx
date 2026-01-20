@@ -146,7 +146,7 @@ const TripDetailsPage = () => {
                                     onClick={() => navigate("/trips")}
                                     className="cancel-button"
                                 >
-                                    Cancel
+                                    Back to trips
                                 </button>
                             </div>
                         </div>

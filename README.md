@@ -1,23 +1,20 @@
 # Directions-Manager
 Ivan Andreea-Paula Tema 15: Manager de trasee integrat cu Google Directions
-- Application Demo: https://drive.google.com/file/d/1oxcmp5vmutqO0o_HIMdjxMqMV4Sid2pN/view?usp=sharing
-## Demo Account
+- Video Demo: https://drive.google.com/file/d/1oxcmp5vmutqO0o_HIMdjxMqMV4Sid2pN/view?usp=sharing
 
-⚠️ For demo/testing purposes only.
-
-- Email: paula@example.com
-- Password: password1
-
-This account exists only in the demo environment and contains no real data.
 # Aplicație de tip Carpooling
 
 
 ##  Descriere
 ### Scop: 
-Dezvoltarea unei aplicații care permite utilizatorilor să caute curse disponibile și să se alăture acestora. 
-Compatibilitatea între trasee este calculată automat folosind **Google Directions API**, pe baza formei rutei și a abaterii necesare pentru preluarea pasagerului.
+Directions Manager are ca scop conectarea eficientă a șoferilor și pasagerilor care au trasee compatibile. Compatibilitatea este calculată automat folosind Google Directions API și Google Geocoding API, analizând forma reală a traseelor și abaterile necesare pentru preluarea pasagerilor.
 ### Tech Stack: 
-React.js, Express.js, Google Directions API, Google Geocoding API, PostgreSQL, Docker
+- React.js
+- Express.js
+- Google Directions API
+- Google Geocoding API
+- PostgreSQL
+- Docker
 
 
 ##  Funcționalități
@@ -31,8 +28,6 @@ React.js, Express.js, Google Directions API, Google Geocoding API, PostgreSQL, D
 
 ### Opțiuni șofer
 -   Crearea, editarea și ștergerea propriilor curse
--	Vizualizarea rezervărilor asociate curselor
--	Gestionarea locurilor disponibile
 
 ###  Calcularea compatibilității traseelor
 
@@ -80,8 +75,21 @@ React.js, Express.js, Google Directions API, Google Geocoding API, PostgreSQL, D
 ## Instalare
 
 ``` bash
-docker compose up -d
-cd server && npm run seed
-cd server && npm install && npm run dev
-cd client && npm install && npm run dev
+1. docker compose up -d
+2. open DB connection with DB client of choice
+3. cd server && npm install
+4. cd server && npm run seed
+5. cd server && npm run dev
+6. cd client && npm install 
+7. cd client && npm run dev
 ```
+
+## Demo Account
+
+⚠️ For demo/testing purposes only.
+
+- Email: paula@example.com
+- Password: password1
+
+This account exists only in the demo environment and contains no real data.
+

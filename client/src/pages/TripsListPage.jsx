@@ -10,7 +10,7 @@ const TripsListPage = () => {
     const fetchTrips = async () => {
         setLoading(true);
         try {
-            const res = await api.get("/trips"); // ✅ all trips
+            const res = await api.get("/trips");
             setTrips(res.data.data ?? res.data);
         } catch (err) {
             console.error(err);
